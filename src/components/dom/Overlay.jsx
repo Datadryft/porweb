@@ -100,7 +100,7 @@ export const Overlay = () => {
                             <div className="flex justify-between items-start mb-4">
                                 <h3 className="font-orbitron text-xl text-white group-hover:text-brand-orange transition-colors">{project.title}</h3>
                                 <span className={`text-xs font-mono px-2 py-1 border ${project.status === 'ONLINE' ? 'border-green-500 text-green-500' :
-                                        project.status === 'PROTOTYPE' ? 'border-yellow-500 text-yellow-500' : 'border-red-500 text-red-500'
+                                    project.status === 'PROTOTYPE' ? 'border-yellow-500 text-yellow-500' : 'border-red-500 text-red-500'
                                     }`}>
                                     {project.status}
                                 </span>
@@ -127,8 +127,11 @@ export const Overlay = () => {
                 </button>
             </Section>
 
-            <footer className="w-full text-center py-8 font-mono text-xs text-gray-600">
-                DATADRYFT SYSTEMS © 2026
+            <footer className="w-full text-center py-8 font-mono text-xs text-gray-600 flex flex-col gap-2">
+                <span>DATADRYFT SYSTEMS © 2026</span>
+                <a href="https://sketchfab.com/3d-models/human-brain-e073c2590bc24daaa7323f4daa5b7784" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors">
+                    Brain Model by Yash_Dandavate (CC-BY-4.0)
+                </a>
             </footer>
         </div>
     )
