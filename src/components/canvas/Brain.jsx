@@ -1,62 +1,84 @@
-import { useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { Points, PointMaterial } from '@react-three/drei'
+import { useMemo, useRef, useEffect } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
+import { Points, PointMaterial, useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.js'
 
 export function Brain(props) {
     const ref = useRef()
+    const { viewport, mouse } = useThree()
 
-    // Generate points on a TorusKnot to simulate a complex neural bundle structure
+    // Load the user's provided GLTF model
+    const { scene } = useGLTF('/human-brain (3)/scene.gltf')
+
     const [positions, colors] = useMemo(() => {
-        const count = 15000 // Increased density for better definition
-        const positions = new Float32Array(count * 3)
-        const colors = new Float32Array(count * 3)
+        if (!scene) return [new Float32Array(0), new Float32Array(0)]
 
-        // Create a dummy geometry to sample from
-        // p=2, q=3 makes a nice knot. Radius 1, Tube 0.4 makes it chunky "brainy"
-        const geometry = new THREE.TorusKnotGeometry(1, 0.35, 100, 32)
+        let mesh = null
+        scene.traverse((child) => {
+            // Find the first mesh that seems to be the brain
+            // Often models have multiple meshes, we want the main one
+            if (child.isMesh && !mesh) {
+                mesh = child
+            }
+        })
 
-        // Sample points from the surface
-        const material = new THREE.MeshBasicMaterial()
-        const mesh = new THREE.Mesh(geometry, material)
+        if (!mesh) {
+            console.warn("No mesh found in brain model")
+            return [new Float32Array(0), new Float32Array(0)]
+        }
+
+        // Increased to 60,000 for very high Definition
+        const pointsCount = 60000
+        const positions = new Float32Array(pointsCount * 3)
+        const colors = new Float32Array(pointsCount * 3)
+
         const sampler = new MeshSurfaceSampler(mesh).build()
-
         const tempPosition = new THREE.Vector3()
         const color = new THREE.Color()
 
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < pointsCount; i++) {
             sampler.sample(tempPosition)
-            positions.set([tempPosition.x, tempPosition.y, tempPosition.z], i * 3)
 
-            // Color gradient: Mix between Cyan (#00f3ff) and brand Orange (#ff8a00)
-            // With some "Hot" spots (white/yellow) for activity
+            positions[i * 3] = tempPosition.x
+            positions[i * 3 + 1] = tempPosition.y
+            positions[i * 3 + 2] = tempPosition.z
+
+            // --- COLOR LOGIC (Data Dryft Theme) ---
             const randomVal = Math.random()
-            if (randomVal > 0.95) {
-                color.set('#ffffff') // Spark
-            } else if (randomVal > 0.6) {
-                color.set('#ff8a00') // Brand Orange
+            if (randomVal > 0.99) {
+                color.set('#ffc266') // Spark
+            } else if (randomVal > 0.90) {
+                color.set('#ff8a00') // Brand Orange (Highlights)
+            } else if (randomVal > 0.7) {
+                color.set('#4a2000') // Dark Burnt Orange
             } else {
-                color.set('#00f3ff') // Cyan
+                // Darker Void Teal for better contrast against background
+                color.set('#00151a')
             }
 
-            colors.set([color.r, color.g, color.b], i * 3)
+            colors[i * 3] = color.r
+            colors[i * 3 + 1] = color.g
+            colors[i * 3 + 2] = color.b
         }
 
         return [positions, colors]
-    }, [])
+    }, [scene])
 
     useFrame((state, delta) => {
-        // Rotate slowly
-        ref.current.rotation.x += delta / 20
-        ref.current.rotation.y += delta / 15
+        const sensitivity = 0.5
+        const lerpFactor = 0.1
 
-        // Pulse effect: heartbeat of the AI
-        const t = state.clock.getElapsedTime()
-        // A heartbeat rhythm: beat-beat... pause...
-        // simpler sine wave for now:
-        const scale = 1 + Math.sin(t * 1.5) * 0.02
-        ref.current.scale.set(scale, scale, scale)
+        const targetX = (mouse.y * viewport.height / 100) * sensitivity
+        const targetY = (mouse.x * viewport.width / 100) * sensitivity + (state.clock.elapsedTime / 20)
+
+        ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, targetX, lerpFactor)
+        ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, targetY, lerpFactor)
+
+        // Scale pulsation
+        // Increased base scale slightly to 1.8 to make it more pronounced
+        const pulse = 1.8 + Math.sin(state.clock.elapsedTime * 2) * 0.02
+        ref.current.scale.set(pulse, pulse, pulse)
     })
 
     return (
@@ -65,7 +87,7 @@ export function Brain(props) {
                 <PointMaterial
                     transparent
                     vertexColors
-                    size={0.012}
+                    size={0.006} // Smaller points for finer resolution
                     sizeAttenuation={true}
                     depthWrite={false}
                     blending={THREE.AdditiveBlending}

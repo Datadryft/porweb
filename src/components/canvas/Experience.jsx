@@ -12,11 +12,6 @@ export const Experience = () => {
             <Particles />
             <Brain />
 
-            <mesh rotation={[0.5, 0.5, 0]}>
-                <boxGeometry />
-                <meshStandardMaterial color="#ff8a00" wireframe />
-            </mesh>
-
             <EffectComposer>
                 <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} height={300} intensity={1.5} />
                 <Noise opacity={0.05} />

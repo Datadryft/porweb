@@ -1,4 +1,5 @@
 import { Section } from './Section'
+import { motion } from 'framer-motion'
 
 const projects = [
     {
@@ -20,6 +21,22 @@ const projects = [
         status: "OFFLINE"
     }
 ]
+
+// Animated container for the grid
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2
+        }
+    }
+}
+
+const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+}
 
 export const Overlay = () => {
     return (
@@ -69,9 +86,17 @@ export const Overlay = () => {
                 <h2 className="text-4xl font-orbitron mb-12 text-white border-b border-white/20 pb-4 inline-block">
                     PROJECT_DATABASE
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                {/* Animated Grid */}
+                <motion.div
+                    variants={container}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                >
                     {projects.map((project, idx) => (
-                        <div key={idx} className="bg-white/5 border border-white/10 p-6 hover:border-brand-orange transition-colors duration-300 group">
+                        <motion.div variants={item} key={idx} className="bg-white/5 border border-white/10 p-6 hover:border-brand-orange transition-colors duration-300 group">
                             <div className="flex justify-between items-start mb-4">
                                 <h3 className="font-orbitron text-xl text-white group-hover:text-brand-orange transition-colors">{project.title}</h3>
                                 <span className={`text-xs font-mono px-2 py-1 border ${project.status === 'ONLINE' ? 'border-green-500 text-green-500' :
@@ -86,9 +111,9 @@ export const Overlay = () => {
                                     <span key={i} className="text-xs bg-white/10 px-2 py-1 rounded text-gray-300">{t}</span>
                                 ))}
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </Section>
 
             {/* Contact Section */}
