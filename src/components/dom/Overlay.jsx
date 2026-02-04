@@ -119,12 +119,15 @@ export const Overlay = () => {
             {/* Contact Section */}
             <Section className="items-center text-center">
                 <h2 className="text-5xl font-orbitron mb-8 text-white">INITIALIZE_LINK</h2>
-                <p className="font-mono text-gray-400 mb-8 max-w-lg">
+                <p className="font-mono text-gray-400 mb-8 max-w-lg mx-auto text-center">
                     Ready to collaborate on the next frontier? Transmit your signal.
                 </p>
-                <button className="px-8 py-4 bg-brand-orange text-black font-bold font-orbitron tracking-widest hover:bg-white transition-colors duration-300 shadow-[0_0_20px_rgba(255,138,0,0.4)]">
+                <a
+                    href="mailto:contact@datadryft.com"
+                    className="inline-block px-8 py-4 bg-brand-orange text-black font-bold font-orbitron tracking-widest hover:bg-white transition-colors duration-300 shadow-[0_0_20px_rgba(255,138,0,0.4)] cursor-pointer"
+                >
                     ESTABLISH CONNECTION
-                </button>
+                </a>
             </Section>
 
             <footer className="w-full text-center py-8 font-mono text-xs text-gray-600 flex flex-col gap-2">
