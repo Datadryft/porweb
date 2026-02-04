@@ -9,17 +9,23 @@ export function Brain(props) {
     const { viewport, mouse } = useThree()
 
     // Load the user's provided GLTF model
-    const { scene } = useGLTF('/human-brain (3)/scene.gltf')
+    const baseUrl = import.meta.env.BASE_URL;
+    const { scene } = useGLTF(`${baseUrl}human-brain%20(3)/scene.gltf`)
 
     const [positions, colors] = useMemo(() => {
         if (!scene) return [new Float32Array(0), new Float32Array(0)]
 
         let mesh = null
+        let maxVerts = 0;
+
         scene.traverse((child) => {
-            // Find the first mesh that seems to be the brain
-            // Often models have multiple meshes, we want the main one
-            if (child.isMesh && !mesh) {
-                mesh = child
+            if (child.isMesh) {
+                const count = child.geometry.attributes.position.count;
+                console.log(`Found mesh: ${child.name} with ${count} vertices`);
+                if (count > maxVerts) {
+                    mesh = child;
+                    maxVerts = count;
+                }
             }
         })
 
@@ -28,8 +34,10 @@ export function Brain(props) {
             return [new Float32Array(0), new Float32Array(0)]
         }
 
-        // Increased to 60,000 for very high Definition
-        const pointsCount = 60000
+        console.log("Selected mesh:", mesh.name);
+
+        // Restore High Definition (50,000 points)
+        const pointsCount = 50000
         const positions = new Float32Array(pointsCount * 3)
         const colors = new Float32Array(pointsCount * 3)
 
