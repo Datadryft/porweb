@@ -44,7 +44,9 @@ const blogPosts = [
 const socials = [
     { name: "LINKEDIN", url: "https://linkedin.com/in/yourprofile" },
     { name: "GITHUB", url: "https://github.com/yourusername" },
-    { name: "X / TWITTER", url: "https://twitter.com/yourhandle" }
+    { name: "X / TWITTER", url: "https://twitter.com/yourhandle" },
+    { name: "YOUTUBE", url: "https://youtube.com/@yourchannel" },
+    { name: "INSTAGRAM", url: "https://instagram.com/yourhandle" }
 ]
 
 const projectDetails = {
