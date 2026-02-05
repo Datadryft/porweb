@@ -18,6 +18,40 @@ An immersive, futuristic portfolio website built with **React**, **Three.js**, a
 -   **Holographic UI**: Glassmorphism design with "Data Dryft" Orange & Blue branding.
 -   **Responsive**: Fully optimized for different screen sizes.
 
+## 🛠️ Setup & Installation
+
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/your-username/porweb.git
+    cd porweb
+    ```
+
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+
+3.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+
+## 🌍 Deployment (GitHub Pages)
+
+This project is configured for easy deployment to GitHub Pages.
+
+1.  **Update `package.json`**:
+    Change the `"homepage"` field to your own URL:
+    ```json
+    "homepage": "https://<your-username>.github.io/porweb"
+    ```
+
+2.  **Deploy**:
+    ```bash
+    npm run deploy
+    ```
+    This will build the project and push it to a `gh-pages` branch.
 
 ## ⚖️ License & Attribution
 This project uses a 3D model licensed under CC-BY-4.0:
