@@ -87,6 +87,7 @@ const modalVariants = {
 
 export const Overlay = () => {
     const [selectedProject, setSelectedProject] = useState(null)
+    const [menuOpen, setMenuOpen] = useState(false)
 
     return (
         <div className="absolute top-0 left-0 w-full h-full overflow-y-auto pointer-events-auto">
@@ -95,12 +96,43 @@ export const Overlay = () => {
                 <div className="font-orbitron font-bold text-xl tracking-widest">
                     DATA<span className="text-brand-orange">DRYFT</span>
                 </div>
-                <ul className="flex gap-8 font-mono text-sm">
+
+                {/* Desktop Menu */}
+                <ul className="hidden md:flex gap-8 font-mono text-sm">
                     <li className="hover:text-brand-orange cursor-pointer transition-colors">[ ABOUT ]</li>
                     <li className="hover:text-brand-orange cursor-pointer transition-colors">[ PROJECTS ]</li>
                     <li className="hover:text-brand-orange cursor-pointer transition-colors">[ CONTACT ]</li>
                 </ul>
+
+                {/* Hamburger Button */}
+                <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="md:hidden flex flex-col gap-1.5 p-2"
+                    aria-label="Toggle menu"
+                >
+                    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+                    <span className={`block w-6 h-0.5 bg-white transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                </button>
             </nav>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {menuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="fixed top-20 left-0 w-full bg-black/95 backdrop-blur-md z-40 md:hidden border-b border-brand-orange/30"
+                    >
+                        <ul className="flex flex-col items-center gap-6 py-8 font-mono text-lg">
+                            <li onClick={() => setMenuOpen(false)} className="hover:text-brand-orange cursor-pointer transition-colors">[ ABOUT ]</li>
+                            <li onClick={() => setMenuOpen(false)} className="hover:text-brand-orange cursor-pointer transition-colors">[ PROJECTS ]</li>
+                            <li onClick={() => setMenuOpen(false)} className="hover:text-brand-orange cursor-pointer transition-colors">[ CONTACT ]</li>
+                        </ul>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Hero Section */}
             <Section className="items-center text-center">
@@ -206,7 +238,7 @@ export const Overlay = () => {
                     ESTABLISH CONNECTION
                 </a>
 
-                <div className="flex gap-8 mt-16">
+                <div className="flex gap-8 mt-16 justify-center w-full flex-wrap">
                     {socials.map((social, idx) => (
                         <a key={idx} href={social.url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-brand-orange font-mono text-sm tracking-wider transition-colors">
                             [{social.name}]
