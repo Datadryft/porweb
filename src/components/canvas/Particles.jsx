@@ -17,11 +17,11 @@ export function Particles(props) {
             <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
                 <PointMaterial
                     transparent
-                    color="#00f3ff"
-                    size={0.02}
+                    color="#00ffff"
+                    size={0.035}
                     sizeAttenuation={true}
                     depthWrite={false}
-                    opacity={0.6}
+                    opacity={0.9}
                 />
             </Points>
         </group>
