@@ -27,7 +27,7 @@ const blogPosts = [
     {
         title: "Buidling Homelab with no Ethernet",
         date: "2026.01.12",
-        link: "https://medium.com/@Datadryft/front-end-web-development-a-beginners-guide-to-creating-beautiful-and-interactive-websites-253e1ccd2d49" // Update with real link
+        link: "https://medium.com/@Datadryft/i-built-an-ai-homelab-here-is-how-it-went-14c502a6d951" // Update with real link
     },
     {
         title: "How to Write a Compelling Case Study: A Step-by-Step Guide (Data Analyst Edition)",
