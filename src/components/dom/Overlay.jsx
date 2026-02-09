@@ -4,63 +4,64 @@ import { useState } from 'react'
 
 const projects = [
     {
-        title: "NEURAL NETWORK V1",
-        desc: "AI-driven pattern recognition system.",
-        tech: ["PyTorch", "React", "WebGL"],
-        status: "ONLINE"
-    },
-    {
-        title: "CYBERNETIC ARM",
-        desc: "Prosthetic interface prototype.",
-        tech: ["C++", "Arduino", "Three.js"],
+        title: "Wireless Homelab",
+        desc: "A Wireless AI Homelab Server",
+        tech: ["Proxmox", "Docker", "ssh", "n8n", "Automation"],
         status: "PROTOTYPE"
     },
     {
-        title: "VOID DRONE",
-        desc: "Autonomous surveillance unit.",
-        tech: ["Rust", "WASM", "WebGPU"],
+        title: "BikeShare Case Study",
+        desc: "Customers vs Subscribers",
+        tech: ["tableau", "SQL", "R"],
+        status: "ONLINE"
+    },
+    {
+        title: "Weather Station Analysis",
+        desc: "Data Processing Algorithm",
+        tech: ["ggplot", "Tidyverse", "Jupyter-NB", "R"],
         status: "OFFLINE"
     }
 ]
 
 const blogPosts = [
     {
-        title: "The Future of Synthetic Data",
-        date: "2026.04.12",
-        link: "https://medium.com/@rielanalytics4" // Update with real link
+        title: "Buidling Homelab with no Ethernet",
+        date: "2026.01.12",
+        link: "https://medium.com/@Datadryft/front-end-web-development-a-beginners-guide-to-creating-beautiful-and-interactive-websites-253e1ccd2d49" // Update with real link
     },
     {
-        title: "Optimizing WebGL for Neural Interfaces",
-        date: "2026.03.08",
-        link: "https://medium.com/@rielanalytics4"
+        title: "How to Write a Compelling Case Study: A Step-by-Step Guide (Data Analyst Edition)",
+        date: "2024.10.13",
+        link: "https://medium.com/@Datadryft/how-to-write-a-compelling-case-study-a-step-by-step-guide-data-analyst-edition-5858fcebe840"
     },
     {
-        title: "Ethical AI in Autonomous Systems",
-        date: "2026.01.15",
-        link: "https://medium.com/@rielanalytics4"
+        title: "Front-End Web Development: A Beginner’s Guide to Creating Beautiful and Interactive Websites",
+        date: "2023.02.14",
+        link: "https://medium.com/@Datadryft/front-end-web-development-a-beginners-guide-to-creating-beautiful-and-interactive-websites-253e1ccd2d49"
     }
 ]
 
 const socials = [
-    { name: "LINKEDIN", url: "https://linkedin.com/in/yourprofile" },
-    { name: "GITHUB", url: "https://github.com/yourusername" },
-    { name: "X / TWITTER", url: "https://twitter.com/yourhandle" },
-    { name: "YOUTUBE", url: "https://youtube.com/@yourchannel" },
-    { name: "INSTAGRAM", url: "https://instagram.com/yourhandle" }
+    { name: "LINKEDIN", url: "https://linkedin.com/in/gabriel-zaldivar-a72146212?utm_source=share_via&utm_content=profile&utm_" },
+    { name: "GITHUB", url: "https://github.com/Datadryft" },
+    { name: "X / TWITTER", url: "https://X.com/Datadryft" },
+    { name: "YOUTUBE", url: "https://youtube.com/@Datadryft" },
+    { name: "INSTAGRAM", url: "https://instagram.com/Datadryft " }
 ]
 
 const projectDetails = {
-    "NEURAL NETWORK V1": {
-        longDesc: "A comprehensive system designed to identify complex patterns in unstructured data sets. Utilizing a custom-built transformer architecture, it achieves 99.8% accuracy in edge-case detection.",
-        image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop"
+    "WIRELESS AI HOMELAB": {
+        longDesc: "Built an AI homelab and configured a laptop as a temporary router to provide internet access to the server, enabling remote updates, package installs, and automation workflows when no dedicated router was available.",
+        image: "https://miro.medium.com/v2/resize:fit:1000/format:webp/1*5RC571x_fR-eRwy8vEg6nw.png"
     },
-    "CYBERNETIC ARM": {
-        longDesc: "Tactile feedback interface for next-gen prosthetics. Integrates real-time nerve signal processing with low-latency servo control for near-natural movement.",
-        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1000&auto=format&fit=crop"
+    "BIKE SHARE CASE STUDY": {
+        longDesc: "Analyzed Bike Share usage to compare one-time customers and monthly subscribers, focusing on demographics, usage frequency, peak times, and average ride length to support targeted marketing decisions.",
+        image: "https://images.unsplash.com/photo-XGkl5yYHxyA?q=80&w=1000&auto=format&fit=crop"
     },
-    "VOID DRONE": {
-        longDesc: "Stealth surveillance drone capable of autonomous navigation in GPS-denied environments. Features onboard SLAM and thermal imaging.",
-        image: "https://images.unsplash.com/photo-1506947411487-a56738267384?q=80&w=1000&auto=format&fit=crop"
+    "WEATHER STATION DATA ANALYSIS": {
+        longDesc: "Interned at the University of Florida’s Tropical Research and Education Center, working with weather stations for hemp field trials. Maintained and repaired stations, managed data quality, and analyzed multi-site weather data using R. Built algorithms to separate irrigation, rainfall, and fertilization events, and produced visualizations using ggplot2 and tidyverse.",
+        image: "https://images.unsplash.com/photo-OtW3XS4Yjd0?q=80&w=1000&auto=format&fit=crop"
+        
     }
 }
 
