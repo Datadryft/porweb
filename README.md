@@ -2,7 +2,7 @@
 
 An immersive, futuristic portfolio website built with **React**, **Three.js**, and **TailwindCSS**. It features a holographic 3D brain visualization, particle systems, and a cyberpunk-inspired UI.
 
-![Preview](https://via.placeholder.com/800x400?text=Data+Dryft+Preview)
+![Preview](https://datadryft.github.io/porweb/)
 
 ## 🚀 Tech Stack
 -   **Core**: React, Vite
