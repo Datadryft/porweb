@@ -52,15 +52,15 @@ const socials = [
 const projectDetails = {
     "WIRELESS AI HOMELAB": {
         longDesc: "Built an AI homelab and configured a laptop as a temporary router to provide internet access to the server, enabling remote updates, package installs, and automation workflows when no dedicated router was available.",
-        image: "https://miro.medium.com/v2/resize:fit:1000/format:webp/1*5RC571x_fR-eRwy8vEg6nw.png"
+        image: "src/images/laptopRouter.webp"
     },
     "BIKE SHARE CASE STUDY": {
         longDesc: "Analyzed Bike Share usage to compare one-time customers and monthly subscribers, focusing on demographics, usage frequency, peak times, and average ride length to support targeted marketing decisions.",
-        image: "https://images.unsplash.com/photo-XGkl5yYHxyA?q=80&w=1000&auto=format&fit=crop"
+        image: "src/images/bikeshare_riding.webp"
     },
     "WEATHER STATION DATA ANALYSIS": {
         longDesc: "Interned at the University of Florida’s Tropical Research and Education Center, working with weather stations for hemp field trials. Maintained and repaired stations, managed data quality, and analyzed multi-site weather data using R. Built algorithms to separate irrigation, rainfall, and fertilization events, and produced visualizations using ggplot2 and tidyverse.",
-        image: "https://images.unsplash.com/photo-OtW3XS4Yjd0?q=80&w=1000&auto=format&fit=crop"
+        image: "src/images/WeatherStation.webp"
         
     }
 }
