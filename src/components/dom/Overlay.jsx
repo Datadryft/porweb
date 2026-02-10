@@ -27,7 +27,7 @@ const blogPosts = [
     {
         title: "Buidling Homelab with no Ethernet",
         date: "2026.01.12",
-        link: "https://medium.com/@Datadryft/i-built-an-ai-homelab-here-is-how-it-went-14c502a6d951" // Update with real link
+        link: "https://medium.com/@Datadryft/i-built-an-ai-homelab-here-is-how-it-went-14c502a6d951"
     },
     {
         title: "How to Write a Compelling Case Study: A Step-by-Step Guide (Data Analyst Edition)",
@@ -42,11 +42,11 @@ const blogPosts = [
 ]
 
 const socials = [
-    { name: "LINKEDIN", url: "https://linkedin.com/in/gabriel-zaldivar-a72146212?utm_source=share_via&utm_content=profile&utm_" },
+    { name: "LINKEDIN", url: "https://linkedin.com/in/gabriel-zaldivar-a72146212" },
     { name: "GITHUB", url: "https://github.com/Datadryft" },
     { name: "X / TWITTER", url: "https://X.com/Datadryft" },
     { name: "YOUTUBE", url: "https://youtube.com/@Datadryft" },
-    { name: "INSTAGRAM", url: "https://instagram.com/Datadryft " }
+    { name: "INSTAGRAM", url: "https://instagram.com/Datadryft" }
 ]
 
 const projectDetails = {
@@ -61,7 +61,7 @@ const projectDetails = {
     "WEATHER STATION DATA ANALYSIS": {
         longDesc: "Interned at the University of Florida’s Tropical Research and Education Center, working with weather stations for hemp field trials. Maintained and repaired stations, managed data quality, and analyzed multi-site weather data using R. Built algorithms to separate irrigation, rainfall, and fertilization events, and produced visualizations using ggplot2 and tidyverse.",
         image: "src/images/WeatherStation.webp"
-        
+
     }
 }
 
@@ -310,9 +310,9 @@ export const Overlay = () => {
                                             </span>
                                         ))}
                                     </div>
-                                    <button className="text-sm font-orbitron text-neon-cyan hover:text-white transition-colors">
+                                    <a href="https://github.com/Datadryft" target="_blank" rel="noopener noreferrer" className="text-sm font-orbitron text-neon-cyan hover:text-white transition-colors">
                                         VIEW CODEBASE →
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </motion.div>

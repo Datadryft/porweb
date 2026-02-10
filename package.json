@@ -11,6 +11,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Datadryft/porweb.git"
+  },
   "dependencies": {
     "@react-three/drei": "^9.108.0",
     "@react-three/fiber": "^8.16.8",
