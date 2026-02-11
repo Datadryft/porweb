@@ -1,6 +1,11 @@
 import { Section } from './Section'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
+import laptopRouter from './images/laptopRouter.webp'
+import bikeshareRiding from './images/bikeshare_riding.webp'
+import weatherStation from './images/WeatherStation.webp'
+
+
 
 const projects = [
     {
@@ -50,17 +55,17 @@ const socials = [
 ]
 
 const projectDetails = {
-    "WIRELESS AI HOMELAB": {
+    "Wireless Homelab": {
         longDesc: "Built an AI homelab and configured a laptop as a temporary router to provide internet access to the server, enabling remote updates, package installs, and automation workflows when no dedicated router was available.",
-        image: "src/images/laptopRouter.webp"
+        image: "laptopRouter.webp"
     },
-    "BIKE SHARE CASE STUDY": {
+    "BikeShare Case Study": {
         longDesc: "Analyzed Bike Share usage to compare one-time customers and monthly subscribers, focusing on demographics, usage frequency, peak times, and average ride length to support targeted marketing decisions.",
-        image: "src/images/bikeshare_riding.webp"
+        image: "bikeshare_riding.webp"
     },
-    "WEATHER STATION DATA ANALYSIS": {
+    "Weather Station Analysis": {
         longDesc: "Interned at the University of Florida’s Tropical Research and Education Center, working with weather stations for hemp field trials. Maintained and repaired stations, managed data quality, and analyzed multi-site weather data using R. Built algorithms to separate irrigation, rainfall, and fertilization events, and produced visualizations using ggplot2 and tidyverse.",
-        image: "src/images/WeatherStation.webp"
+        image: "WeatherStation.webp"
         
     }
 }
