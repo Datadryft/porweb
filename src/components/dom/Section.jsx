@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export const Section = ({ children, className = '', id = '' }) => {
     return (
-        <section id={id} className={`min-h-screen w-full flex flex-col justify-center items-start px-8 md:px-24 ${className}`}>
+        <section id={id} className={`min-h-screen w-full flex flex-col justify-center items-start px-4 md:px-24 ${className}`}>
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}

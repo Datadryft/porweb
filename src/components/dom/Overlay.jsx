@@ -103,7 +103,7 @@ export const Overlay = () => {
     };
 
     return (
-        <div className="absolute top-0 left-0 w-full h-full overflow-y-auto pointer-events-auto">
+        <div className="absolute top-0 left-0 w-full h-full overflow-y-auto overflow-x-hidden pointer-events-auto">
             {/* Navbar */}
             <nav className="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-50 text-white mix-blend-difference">
                 <div className="font-orbitron font-bold text-xl tracking-widest">
@@ -149,7 +149,7 @@ export const Overlay = () => {
 
             {/* Hero Section */}
             <Section className="items-center text-center">
-                <h1 className="text-6xl md:text-9xl font-orbitron font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 mb-4 tracking-tighter filter drop-shadow-[0_0_10px_rgba(255,138,0,0.5)]">
+                <h1 className="text-4xl md:text-9xl font-orbitron font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 mb-4 tracking-tighter filter drop-shadow-[0_0_10px_rgba(255,138,0,0.5)]">
                     DATA DRYFT
                 </h1>
                 <div className="flex flex-col items-center gap-2 font-mono text-brand-orange text-sm md:text-base tracking-widest">
@@ -163,7 +163,7 @@ export const Overlay = () => {
                 <div className="bg-black/40 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-lg relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-orange to-transparent opacity-50 transform -translate-x-full group-hover:animate-scanline" />
 
-                    <h2 className="text-4xl font-orbitron mb-6 text-white">IDENTITY_LOG</h2>
+                    <h2 className="text-2xl md:text-4xl font-orbitron mb-6 text-white">IDENTITY_LOG</h2>
                     <p className="font-mono text-gray-300 leading-relaxed mb-6">
                         Specialized in <span className="text-brand-orange">Data Visualization</span> and <span className="text-neon-cyan">Neural Architectures</span>.
                         Building the bridge between raw data and digital synthesis.
@@ -177,7 +177,7 @@ export const Overlay = () => {
 
             {/* Projects Section */}
             <Section id="projects">
-                <h2 className="text-4xl font-orbitron mb-12 text-white border-b border-white/20 pb-4 inline-block">
+                <h2 className="text-2xl md:text-4xl font-orbitron mb-12 text-white border-b border-white/20 pb-4 inline-block">
                     PROJECT_DATABASE
                 </h2>
 
@@ -217,7 +217,7 @@ export const Overlay = () => {
 
             {/* Neural Logs (Blog) Section */}
             <Section>
-                <h2 className="text-4xl font-orbitron mb-12 text-white border-b border-white/20 pb-4 inline-block">
+                <h2 className="text-2xl md:text-4xl font-orbitron mb-12 text-white border-b border-white/20 pb-4 inline-block">
                     NEURAL_LOGS
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -240,7 +240,7 @@ export const Overlay = () => {
 
             {/* Contact Section */}
             <Section id="contact" className="items-center justify-center text-center">
-                <h2 className="text-5xl font-orbitron mb-8 text-white">INITIALIZE_LINK</h2>
+                <h2 className="text-3xl md:text-5xl font-orbitron mb-8 text-white">INITIALIZE_LINK</h2>
                 <p className="font-mono text-gray-400 mb-8 max-w-lg mx-auto text-center">
                     Ready to collaborate on the next frontier? Transmit your signal.
                 </p>
