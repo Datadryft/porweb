@@ -176,7 +176,7 @@ export const Overlay = () => {
             </Section>
 
             {/* Projects Section */}
-            <Section id="projects">
+            <Section id="projects" className="mb-32 md:mb-0">
                 <h2 className="text-2xl md:text-4xl font-orbitron mb-12 text-white border-b border-white/20 pb-4 inline-block">
                     PROJECT_DATABASE
                 </h2>
@@ -283,9 +283,9 @@ export const Overlay = () => {
                             animate="visible"
                             exit="exit"
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-zinc-900 border border-brand-orange/50 p-1 rounded-lg w-full max-w-2xl overflow-hidden shadow-[0_0_50px_rgba(255,138,0,0.2)]"
+                            className="bg-zinc-900 border border-brand-orange/50 p-1 rounded-lg w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden shadow-[0_0_50px_rgba(255,138,0,0.2)]"
                         >
-                            <div className="relative h-64 w-full bg-zinc-800 overflow-hidden">
+                            <div className="relative h-64 w-full bg-zinc-800 overflow-hidden shrink-0">
                                 <img
                                     src={projectDetails[selectedProject.title]?.image || "https://placehold.co/800x400/111/orange?text=NO+SIGNAL"}
                                     alt={selectedProject.title}
@@ -300,7 +300,7 @@ export const Overlay = () => {
                                 </button>
                             </div>
 
-                            <div className="p-8">
+                            <div className="p-8 overflow-y-auto">
                                 <div className="flex justify-between items-start mb-6">
                                     <h2 className="text-3xl font-orbitron text-white">{selectedProject.title}</h2>
                                     <span className="text-xs font-mono text-brand-orange border border-brand-orange px-2 py-1">
