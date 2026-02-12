@@ -94,6 +94,14 @@ export const Overlay = () => {
     const [selectedProject, setSelectedProject] = useState(null)
     const [menuOpen, setMenuOpen] = useState(false)
 
+    const scrollToSection = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        setMenuOpen(false);
+    };
+
     return (
         <div className="absolute top-0 left-0 w-full h-full overflow-y-auto pointer-events-auto">
             {/* Navbar */}
@@ -104,9 +112,9 @@ export const Overlay = () => {
 
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex gap-8 font-mono text-sm">
-                    <li className="hover:text-brand-orange cursor-pointer transition-colors">[ ABOUT ]</li>
-                    <li className="hover:text-brand-orange cursor-pointer transition-colors">[ PROJECTS ]</li>
-                    <li className="hover:text-brand-orange cursor-pointer transition-colors">[ CONTACT ]</li>
+                    <li onClick={() => scrollToSection('about')} className="hover:text-brand-orange cursor-pointer transition-colors">[ ABOUT ]</li>
+                    <li onClick={() => scrollToSection('projects')} className="hover:text-brand-orange cursor-pointer transition-colors">[ PROJECTS ]</li>
+                    <li onClick={() => scrollToSection('contact')} className="hover:text-brand-orange cursor-pointer transition-colors">[ CONTACT ]</li>
                 </ul>
 
                 {/* Hamburger Button */}
@@ -131,9 +139,9 @@ export const Overlay = () => {
                         className="fixed top-20 left-0 w-full bg-black/95 backdrop-blur-md z-40 md:hidden border-b border-brand-orange/30"
                     >
                         <ul className="flex flex-col items-center gap-6 py-8 font-mono text-lg">
-                            <li onClick={() => setMenuOpen(false)} className="hover:text-brand-orange cursor-pointer transition-colors">[ ABOUT ]</li>
-                            <li onClick={() => setMenuOpen(false)} className="hover:text-brand-orange cursor-pointer transition-colors">[ PROJECTS ]</li>
-                            <li onClick={() => setMenuOpen(false)} className="hover:text-brand-orange cursor-pointer transition-colors">[ CONTACT ]</li>
+                            <li onClick={() => scrollToSection('about')} className="hover:text-brand-orange cursor-pointer transition-colors">[ ABOUT ]</li>
+                            <li onClick={() => scrollToSection('projects')} className="hover:text-brand-orange cursor-pointer transition-colors">[ PROJECTS ]</li>
+                            <li onClick={() => scrollToSection('contact')} className="hover:text-brand-orange cursor-pointer transition-colors">[ CONTACT ]</li>
                         </ul>
                     </motion.div>
                 )}
@@ -151,7 +159,7 @@ export const Overlay = () => {
             </Section>
 
             {/* About Section */}
-            <Section>
+            <Section id="about" className="items-center justify-center">
                 <div className="bg-black/40 backdrop-blur-md border border-white/10 p-8 md:p-12 rounded-lg relative overflow-hidden group">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-orange to-transparent opacity-50 transform -translate-x-full group-hover:animate-scanline" />
 
@@ -168,7 +176,7 @@ export const Overlay = () => {
             </Section>
 
             {/* Projects Section */}
-            <Section>
+            <Section id="projects">
                 <h2 className="text-4xl font-orbitron mb-12 text-white border-b border-white/20 pb-4 inline-block">
                     PROJECT_DATABASE
                 </h2>
@@ -231,7 +239,7 @@ export const Overlay = () => {
             </Section>
 
             {/* Contact Section */}
-            <Section className="items-center text-center">
+            <Section id="contact" className="items-center justify-center text-center">
                 <h2 className="text-5xl font-orbitron mb-8 text-white">INITIALIZE_LINK</h2>
                 <p className="font-mono text-gray-400 mb-8 max-w-lg mx-auto text-center">
                     Ready to collaborate on the next frontier? Transmit your signal.
