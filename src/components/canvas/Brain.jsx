@@ -95,7 +95,7 @@ export function Brain(props) {
                 <PointMaterial
                     transparent
                     vertexColors
-                    size={0.006} // Smaller points for finer resolution
+                    size={viewport.width < 5.5 ? 0.012 : 0.006} // Larger points on mobile for brightness
                     sizeAttenuation={true}
                     depthWrite={false}
                     blending={THREE.AdditiveBlending}
