@@ -4,6 +4,7 @@ import { useState } from 'react'
 import laptopRouter from '../../images/laptopRouter.webp'
 import bikeshare from '../../images/bikeshare_riding.webp'
 import weatherStation from '../../images/WeatherStation.webp'
+import Dog_Breed_Identification_Kaggle from '../../images/Dog_Breed_Identification_Kaggle.webp'
 
 const projects = [
     {
@@ -23,6 +24,12 @@ const projects = [
         desc: "Data Processing Algorithm",
         tech: ["ggplot", "Tidyverse", "Jupyter-NB", "R"],
         status: "OFFLINE"
+    },
+    {
+        title: "End-To-End Dog Vision",
+        desc: "Dog breed Identifier",
+        tech: ["Google Collab", "TensorFlow", "TF-Hub", "Pandas","Keras", "Kaggle"],
+        status: "ONLINE"
     }
 ]
 
@@ -64,6 +71,10 @@ const projectDetails = {
     "Weather Station Analysis": {
         longDesc: "Interned at the University of Florida’s Tropical Research and Education Center, working with weather stations for hemp field trials. Maintained and repaired stations, managed data quality, and analyzed multi-site weather data using R. Built algorithms to separate irrigation, rainfall, and fertilization events, and produced visualizations using ggplot2 and tidyverse.",
         image: weatherStation
+    },
+     "End-To-End Dog Vision": {
+        longDesc: "This comprehensive notebook demonstrates the development of an advanced end-to-end multi-class image classification system using cutting-edge deep learning technologies, specifically leveraging TensorFlow 2.0 and TensorFlow Hub. The project tackles the fascinating challenge of automated dog breed identification through computer vision and transfer learning techniques.",
+        image: Dog_Breed_Identification_Kaggle
     }
 }
 
