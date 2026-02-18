@@ -98,7 +98,7 @@ const projectDetails = {
         longDesc: "In this project, we use machine learning to predict the sale price of bulldozers based on their characteristics and past sales data. Bulldozer characteristics such as make year, base model, model series, state of sale (e.g. which US state it was sold in), drive system, and more. To Bulldozer sale price (in USD). Since we're predicting a number, this is a regression problem. And since we're predicting future sales based on past sales data, it's also a time series / forecasting problem.",
         image: Bulldozer
     }
-
+}
 // Animated container for the grid
 const container = {
     hidden: { opacity: 0 },
