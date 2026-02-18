@@ -6,6 +6,7 @@ import bikeshare from '../../images/bikeshare_riding.webp'
 import weatherStation from '../../images/WeatherStation.webp'
 import Dog_Breed_Identification_Kaggle from '../../images/Dog_Breed_Identification_Kaggle.webp'
 import HumanHeart from '../../images/XrayHumanHeart.webp' 
+import Bulldozer from '../../images/Bulldozer.webp'
 
 const projects = [
     {
@@ -29,14 +30,20 @@ const projects = [
     {
         title: "End-To-End Dog Vision",
         desc: "Dog breed Identifier",
-        tech: ["Google Collab", "TensorFlow", "TF-Hub", "Pandas","Keras", "Kaggle"],
+        tech: ["Google Collab", "TensorFlow", "TF-Hub", "Machine-Learning", "Python"],
         status: "ONLINE"
     },
     {
         title: "❤️Heart Disease Prediction",
         desc: "Heart Disease Prediction using Machine Learning",
-        tech: [ "Scikit-learn", "Pandas","Numpy", "Seaborn", "Kaggle"],
+        tech: [ "Python", "Scikit-learn", "Pandas","Numpy", "Seaborn", "Kaggle"],
         status: "ONLINE"
+    },
+    {
+    title: "🚜Bulldozer price prediction" ,
+    desc: "Predicting the Sale Price of Bulldozers using Machine Learning",
+    tech: ["Python","Jupyter-NB","Machine-Learning","Pandas","Numpy", "Matplotlib", ],
+    status: "ONLINE"
     }
 ]
 
@@ -86,8 +93,11 @@ const projectDetails = {
     "❤️Heart Disease Classification": {
         longDesc: "An end-to-end machine learning classification project that predicts whether a patient has heart disease based on clinical attributes. Explores and compares multiple models including Logistic Regression, K-Nearest Neighbors, and Random Forest.",
         image: HumanHeart
+    },
+    "🚜Bulldozer price prediction": {
+        longDesc: "In this project, we use machine learning to predict the sale price of bulldozers based on their characteristics and past sales data. Bulldozer characteristics such as make year, base model, model series, state of sale (e.g. which US state it was sold in), drive system, and more. To Bulldozer sale price (in USD). Since we're predicting a number, this is a regression problem. And since we're predicting future sales based on past sales data, it's also a time series / forecasting problem.",
+        image: Bulldozer
     }
-}
 
 // Animated container for the grid
 const container = {
