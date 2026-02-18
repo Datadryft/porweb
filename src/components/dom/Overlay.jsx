@@ -5,6 +5,7 @@ import laptopRouter from '../../images/laptopRouter.webp'
 import bikeshare from '../../images/bikeshare_riding.webp'
 import weatherStation from '../../images/WeatherStation.webp'
 import Dog_Breed_Identification_Kaggle from '../../images/Dog_Breed_Identification_Kaggle.webp'
+import HumanHeart from 'src/images/XrayHumanHeart.png'
 
 const projects = [
     {
@@ -29,6 +30,12 @@ const projects = [
         title: "End-To-End Dog Vision",
         desc: "Dog breed Identifier",
         tech: ["Google Collab", "TensorFlow", "TF-Hub", "Pandas","Keras", "Kaggle"],
+        status: "ONLINE"
+    },
+    {
+        title: "❤️Heart Disease Prediction",
+        desc: "Heart Disease Prediction using Machine Learning",
+        tech: [ "Scikit-learn", "Pandas","Numpy", "Seaborn", "Kaggle"],
         status: "ONLINE"
     }
 ]
@@ -75,6 +82,10 @@ const projectDetails = {
      "End-To-End Dog Vision": {
         longDesc: "This comprehensive notebook demonstrates the development of an advanced end-to-end multi-class image classification system using cutting-edge deep learning technologies, specifically leveraging TensorFlow 2.0 and TensorFlow Hub. The project tackles the fascinating challenge of automated dog breed identification through computer vision and transfer learning techniques.",
         image: Dog_Breed_Identification_Kaggle
+    },
+    "❤️Heart Disease Classification": {
+        longDesc: "An end-to-end machine learning classification project that predicts whether a patient has heart disease based on clinical attributes. Explores and compares multiple models including Logistic Regression, K-Nearest Neighbors, and Random Forest.",
+        image: HumanHeart
     }
 }
 
