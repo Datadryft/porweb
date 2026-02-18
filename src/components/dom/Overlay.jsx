@@ -90,7 +90,7 @@ const projectDetails = {
         longDesc: "This comprehensive notebook demonstrates the development of an advanced end-to-end multi-class image classification system using cutting-edge deep learning technologies, specifically leveraging TensorFlow 2.0 and TensorFlow Hub. The project tackles the fascinating challenge of automated dog breed identification through computer vision and transfer learning techniques.",
         image: Dog_Breed_Identification_Kaggle
     },
-    "❤️Heart Disease Classification": {
+    "❤️Heart Disease Prediction": {
         longDesc: "An end-to-end machine learning classification project that predicts whether a patient has heart disease based on clinical attributes. Explores and compares multiple models including Logistic Regression, K-Nearest Neighbors, and Random Forest.",
         image: HumanHeart
     },
