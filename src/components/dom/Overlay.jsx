@@ -5,7 +5,7 @@ import laptopRouter from '../../images/laptopRouter.webp'
 import bikeshare from '../../images/bikeshare_riding.webp'
 import weatherStation from '../../images/WeatherStation.webp'
 import Dog_Breed_Identification_Kaggle from '../../images/Dog_Breed_Identification_Kaggle.webp'
-import HumanHeart from 'src/images/XrayHumanHeart.webp'
+import HumanHeart from '../../images/XrayHumanHeart.webp' 
 
 const projects = [
     {
