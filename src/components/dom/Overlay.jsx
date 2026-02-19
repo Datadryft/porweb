@@ -197,8 +197,8 @@ export const Overlay = () => {
 
                     <h2 className="text-2xl md:text-4xl font-orbitron mb-6 text-white">IDENTITY_LOG</h2>
                     <p className="font-mono text-gray-300 leading-relaxed mb-6">
-                        Specialized in <span className="text-brand-orange">Data Visualization</span> and <span className="text-neon-cyan">Neural Architectures</span>.
-                        Building the bridge between raw data and digital synthesis.
+                        Specialized in <span className="text-brand-orange">Machine Learning Systems</span> and <span className="text-neon-cyan">Data Engineering</span>.
+                        Building end-to-end solutions from model training to production deployment.
                     </p>
                     <div className="flex gap-4 text-xs font-mono text-gray-500">
                         <span>ID: AG-882</span>
