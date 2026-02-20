@@ -25,7 +25,7 @@ const projects = [
         title: "Weather Station Analysis",
         desc: "Data Processing Algorithm",
         tech: ["ggplot", "Tidyverse", "Jupyter-NB", "R"],
-        status: "OFFLINE"
+        status: "ONLINE"
     },
     {
         title: "End-To-End Dog Vision",
