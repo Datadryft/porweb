@@ -5,7 +5,11 @@ import laptopRouter from '../../images/laptopRouter.webp'
 import bikeshare from '../../images/bikeshare_riding.webp'
 import weatherStation from '../../images/WeatherStation.webp'
 import Dog_Breed_Identification_Kaggle from '../../images/Dog_Breed_Identification_Kaggle.webp'
+<<<<<<< HEAD
 import HumanHeart from '../../images/XrayHumanHeart.webp' 
+=======
+import HumanHeart from '../../images/XrayHumanHeart.webp'
+>>>>>>> 6429e45 (Update Overlay.jsx with new projects and styles, and add project assets)
 import Bulldozer from '../../images/Bulldozer.webp'
 
 const projects = [
@@ -36,6 +40,7 @@ const projects = [
     {
         title: "❤️Heart Disease Prediction",
         desc: "Heart Disease Prediction using Machine Learning",
+<<<<<<< HEAD
         tech: [ "Python", "Scikit-learn", "Pandas","Numpy", "Seaborn", "Kaggle"],
         status: "ONLINE"
     },
@@ -44,6 +49,16 @@ const projects = [
     desc: "Predicting the Sale Price of Bulldozers using Machine Learning",
     tech: ["Python","Jupyter-NB","Machine-Learning","Pandas","Numpy", "Matplotlib", ],
     status: "ONLINE"
+=======
+        tech: ["Python", "Scikit-learn", "Pandas", "Numpy", "Seaborn", "Kaggle"],
+        status: "ONLINE"
+    },
+    {
+        title: "🚜Bulldozer price prediction",
+        desc: "Predicting the Sale Price of Bulldozers using Machine Learning",
+        tech: ["Python", "Jupyter-NB", "Machine-Learning", "Pandas", "Numpy", "Matplotlib",],
+        status: "ONLINE"
+>>>>>>> 6429e45 (Update Overlay.jsx with new projects and styles, and add project assets)
     }
 ]
 
@@ -86,7 +101,11 @@ const projectDetails = {
         longDesc: "Interned at the University of Florida’s Tropical Research and Education Center, working with weather stations for hemp field trials. Maintained and repaired stations, managed data quality, and analyzed multi-site weather data using R. Built algorithms to separate irrigation, rainfall, and fertilization events, and produced visualizations using ggplot2 and tidyverse.",
         image: weatherStation
     },
+<<<<<<< HEAD
      "End-To-End Dog Vision": {
+=======
+    "End-To-End Dog Vision": {
+>>>>>>> 6429e45 (Update Overlay.jsx with new projects and styles, and add project assets)
         longDesc: "This comprehensive notebook demonstrates the development of an advanced end-to-end multi-class image classification system using cutting-edge deep learning technologies, specifically leveraging TensorFlow 2.0 and TensorFlow Hub. The project tackles the fascinating challenge of automated dog breed identification through computer vision and transfer learning techniques.",
         image: Dog_Breed_Identification_Kaggle
     },
@@ -226,7 +245,7 @@ export const Overlay = () => {
                             variants={item}
                             key={idx}
                             onClick={() => setSelectedProject(project)}
-                            className="bg-white/5 border border-white/10 p-6 hover:border-brand-orange transition-colors duration-300 group cursor-pointer hover:bg-white/10"
+                            className="bg-black/80 border border-white/10 p-6 hover:border-brand-orange transition-colors duration-300 group cursor-pointer hover:bg-black/60"
                         >
                             <div className="flex justify-between items-start mb-4">
                                 <h3 className="font-orbitron text-xl text-white group-hover:text-brand-orange transition-colors">{project.title}</h3>
@@ -255,7 +274,7 @@ export const Overlay = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {blogPosts.map((post, index) => (
                         <a href={post.link} target="_blank" rel="noopener noreferrer" key={index} className="block group">
-                            <div className="bg-black/50 border-l-2 border-brand-orange p-6 hover:bg-white/5 transition-all">
+                            <div className="bg-black/80 border-l-2 border-brand-orange p-6 hover:bg-black/60 transition-all">
                                 <p className="font-mono text-xs text-brand-orange mb-2">{post.date}</p>
                                 <h3 className="text-xl font-orbitron text-white group-hover:text-neon-cyan transition-colors">
                                     {post.title}
@@ -285,7 +304,7 @@ export const Overlay = () => {
 
                 <div className="flex gap-8 mt-16 justify-center w-full flex-wrap">
                     {socials.map((social, idx) => (
-                        <a key={idx} href={social.url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-brand-orange font-mono text-sm tracking-wider transition-colors">
+                        <a key={idx} href={social.url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-orange font-mono text-base tracking-wider transition-colors font-bold">
                             [{social.name}]
                         </a>
                     ))}
