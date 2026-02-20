@@ -5,11 +5,7 @@ import laptopRouter from '../../images/laptopRouter.webp'
 import bikeshare from '../../images/bikeshare_riding.webp'
 import weatherStation from '../../images/WeatherStation.webp'
 import Dog_Breed_Identification_Kaggle from '../../images/Dog_Breed_Identification_Kaggle.webp'
-<<<<<<< HEAD
-import HumanHeart from '../../images/XrayHumanHeart.webp' 
-=======
 import HumanHeart from '../../images/XrayHumanHeart.webp'
->>>>>>> 6429e45 (Update Overlay.jsx with new projects and styles, and add project assets)
 import Bulldozer from '../../images/Bulldozer.webp'
 
 const projects = [
@@ -40,16 +36,6 @@ const projects = [
     {
         title: "❤️Heart Disease Prediction",
         desc: "Heart Disease Prediction using Machine Learning",
-<<<<<<< HEAD
-        tech: [ "Python", "Scikit-learn", "Pandas","Numpy", "Seaborn", "Kaggle"],
-        status: "ONLINE"
-    },
-    {
-    title: "🚜Bulldozer price prediction" ,
-    desc: "Predicting the Sale Price of Bulldozers using Machine Learning",
-    tech: ["Python","Jupyter-NB","Machine-Learning","Pandas","Numpy", "Matplotlib", ],
-    status: "ONLINE"
-=======
         tech: ["Python", "Scikit-learn", "Pandas", "Numpy", "Seaborn", "Kaggle"],
         status: "ONLINE"
     },
@@ -58,7 +44,6 @@ const projects = [
         desc: "Predicting the Sale Price of Bulldozers using Machine Learning",
         tech: ["Python", "Jupyter-NB", "Machine-Learning", "Pandas", "Numpy", "Matplotlib",],
         status: "ONLINE"
->>>>>>> 6429e45 (Update Overlay.jsx with new projects and styles, and add project assets)
     }
 ]
 
@@ -101,11 +86,7 @@ const projectDetails = {
         longDesc: "Interned at the University of Florida’s Tropical Research and Education Center, working with weather stations for hemp field trials. Maintained and repaired stations, managed data quality, and analyzed multi-site weather data using R. Built algorithms to separate irrigation, rainfall, and fertilization events, and produced visualizations using ggplot2 and tidyverse.",
         image: weatherStation
     },
-<<<<<<< HEAD
-     "End-To-End Dog Vision": {
-=======
     "End-To-End Dog Vision": {
->>>>>>> 6429e45 (Update Overlay.jsx with new projects and styles, and add project assets)
         longDesc: "This comprehensive notebook demonstrates the development of an advanced end-to-end multi-class image classification system using cutting-edge deep learning technologies, specifically leveraging TensorFlow 2.0 and TensorFlow Hub. The project tackles the fascinating challenge of automated dog breed identification through computer vision and transfer learning techniques.",
         image: Dog_Breed_Identification_Kaggle
     },
@@ -304,8 +285,14 @@ export const Overlay = () => {
 
                 <div className="flex gap-8 mt-16 justify-center w-full flex-wrap">
                     {socials.map((social, idx) => (
-                        <a key={idx} href={social.url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-orange font-mono text-base tracking-wider transition-colors font-bold">
-                            [{social.name}]
+                        <a
+                            key={idx}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-black/80 border border-white/10 px-6 py-3 hover:border-brand-orange transition-all duration-300 hover:bg-black/60 text-white font-mono text-base font-bold antialiased tracking-normal"
+                        >
+                            {social.name}
                         </a>
                     ))}
                 </div>
@@ -352,7 +339,7 @@ export const Overlay = () => {
                             </div>
 
                             <div className="p-8 overflow-y-auto">
-                                <div className="flex justify-between items-start mb-6">
+                                <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
                                     <h2 className="text-3xl font-orbitron text-white">{selectedProject.title}</h2>
                                     <span className="text-xs font-mono text-brand-orange border border-brand-orange px-2 py-1">
                                         {selectedProject.status}
@@ -363,8 +350,8 @@ export const Overlay = () => {
                                     {projectDetails[selectedProject.title]?.longDesc || selectedProject.desc}
                                 </p>
 
-                                <div className="border-t border-white/10 pt-6 flex justify-between items-center">
-                                    <div className="flex gap-2">
+                                <div className="border-t border-white/10 pt-6 flex flex-col gap-6 md:flex-row md:justify-between md:items-center">
+                                    <div className="flex flex-wrap gap-2">
                                         {selectedProject.tech.map((t, i) => (
                                             <span key={i} className="text-xs font-mono text-gray-500 bg-white/5 px-2 py-1 rounded">
                                                 {t}
