@@ -1,6 +1,9 @@
 import { Section } from './Section'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import { blogPosts as internalBlogPosts } from '../../content/posts'
 import laptopRouter from '../../images/laptopRouter.webp'
 import bikeshare from '../../images/bikeshare_riding.webp'
 import weatherStation from '../../images/WeatherStation.webp'
@@ -47,7 +50,7 @@ const projects = [
     }
 ]
 
-const blogPosts = [
+const externalBlogPosts = [
     {
         title: "Buidling Homelab with no Ethernet",
         date: "2026.01.12",
@@ -124,6 +127,7 @@ const modalVariants = {
 
 export const Overlay = () => {
     const [selectedProject, setSelectedProject] = useState(null)
+    const [selectedBlog, setSelectedBlog] = useState(null)
     const [menuOpen, setMenuOpen] = useState(false)
 
     const scrollToSection = (id) => {
@@ -253,16 +257,30 @@ export const Overlay = () => {
                     NEURAL_LOGS
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {blogPosts.map((post, index) => (
-                        <a href={post.link} target="_blank" rel="noopener noreferrer" key={index} className="block group">
-                            <div className="bg-black/80 border-l-2 border-brand-orange p-6 hover:bg-black/60 transition-all">
+                    {internalBlogPosts.map((post, index) => (
+                        <div onClick={() => setSelectedBlog(post)} key={`internal-${index}`} className="block group cursor-pointer h-full">
+                            <div className="bg-black/80 border-l-2 border-brand-orange p-6 hover:bg-black/60 transition-all h-full">
                                 <p className="font-mono text-xs text-brand-orange mb-2">{post.date}</p>
                                 <h3 className="text-xl font-orbitron text-white group-hover:text-neon-cyan transition-colors">
                                     {post.title}
                                 </h3>
                                 <div className="mt-4 flex items-center gap-2 text-xs font-mono text-gray-500 group-hover:text-white transition-colors">
-                                    <span>READ_TRANSMISSION</span>
+                                    <span>READ_LOCAL_TRANSMISSION</span>
                                     <span>→</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    {externalBlogPosts.map((post, index) => (
+                        <a href={post.link} target="_blank" rel="noopener noreferrer" key={`external-${index}`} className="block group h-full">
+                            <div className="bg-black/80 border-l-2 border-gray-500 p-6 hover:bg-black/60 transition-all h-full">
+                                <p className="font-mono text-xs text-gray-400 mb-2">{post.date}</p>
+                                <h3 className="text-xl font-orbitron text-gray-300 group-hover:text-white transition-colors">
+                                    {post.title}
+                                </h3>
+                                <div className="mt-4 flex items-center gap-2 text-xs font-mono text-gray-500 group-hover:text-white transition-colors">
+                                    <span>EXTERNAL_RELAY</span>
+                                    <span>↗</span>
                                 </div>
                             </div>
                         </a>
@@ -362,6 +380,47 @@ export const Overlay = () => {
                                         VIEW CODEBASE →
                                     </a>
                                 </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Blog Post Detail Modal */}
+            <AnimatePresence>
+                {selectedBlog && (
+                    <motion.div
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelectedBlog(null)}
+                    >
+                        <motion.div
+                            variants={modalVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-zinc-900 border border-brand-orange/50 p-6 md:p-10 rounded-lg w-full max-w-4xl max-h-[85vh] flex flex-col shadow-[0_0_50px_rgba(255,138,0,0.2)]"
+                        >
+                            <div className="flex justify-between items-start mb-8 shrink-0 border-b border-white/10 pb-4">
+                                <div>
+                                    <h2 className="text-2xl md:text-4xl font-orbitron text-white mb-2">{selectedBlog.title}</h2>
+                                    <span className="text-sm font-mono text-brand-orange bg-brand-orange/10 px-2 py-1 rounded">{selectedBlog.date}</span>
+                                </div>
+                                <button
+                                    onClick={() => setSelectedBlog(null)}
+                                    className="bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-brand-orange hover:text-black transition-all border border-white/20 ml-6 shrink-0"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                            
+                            <div className="overflow-y-auto prose prose-invert prose-orange max-w-none pr-4 font-mono custom-scrollbar">
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                    {selectedBlog.content}
+                                </ReactMarkdown>
                             </div>
                         </motion.div>
                     </motion.div>
