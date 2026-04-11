@@ -295,7 +295,7 @@ export const Overlay = () => {
                     Ready to collaborate on the next frontier? Transmit your signal.
                 </p>
                 <a
-                    href="mailto:rielanalytics4@gmail.com"
+                    href="mailto:datadryft@gmail.com"
                     className="inline-block px-8 py-4 bg-brand-orange text-black font-bold font-orbitron tracking-widest hover:bg-white transition-colors duration-300 shadow-[0_0_20px_rgba(255,138,0,0.4)] cursor-pointer"
                 >
                     ESTABLISH CONNECTION
