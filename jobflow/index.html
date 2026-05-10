@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JobFlow by DataDryft — Never Miss a Job Again</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F77F00;
+    --orange-dim: #F77F0022;
+    --orange-mid: #F77F0066;
+    --cyan: #00D4FF;
+    --black: #060809;
+    --dark: #0C0F12;
+    --card: #101418;
+    --border: #1C2128;
+    --text: #D4DBE4;
+    --muted: #5A6472;
+    --white: #F0F4F8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes scanline {
+    0% { top: -100%; }
+    100% { top: 200%; }
+  }
+  @keyframes counter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+  .delay-5 { animation-delay: 0.7s; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 32px;
+    background: rgba(6,8,9,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 900; letter-spacing: 0.05em;
+    color: var(--white); text-decoration: none;
+  }
+  .logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    background: var(--orange) !important;
+    color: var(--black) !important;
+    padding: 8px 20px !important;
+    font-weight: 700 !important;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px !important;
+    letter-spacing: 0.1em !important;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: opacity 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85 !important; }
+
+  /* TICKER */
+  .ticker-wrap {
+    background: var(--orange);
+    overflow: hidden; white-space: nowrap;
+    padding: 10px 0; margin-top: 65px;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 20s linear infinite;
+  }
+  .ticker-inner span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--black); letter-spacing: 0.15em;
+    padding: 0 40px;
+  }
+  .ticker-inner span::before { content: '▸  '; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 32px 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 100% 50%, #F77F0010 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 0% 80%, #00D4FF08 0%, transparent 60%),
+      linear-gradient(180deg, #060809 0%, #0C0F12 100%);
+  }
+  /* Grid lines */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.3;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .hero-tag-inner {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--orange-dim);
+    border: 1px solid var(--orange-mid);
+    padding: 6px 14px;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.15em;
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--orange);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(64px, 14vw, 140px);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero h1 .accent { color: var(--orange); }
+  .hero h1 .outline {
+    -webkit-text-stroke: 2px var(--orange);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+    max-width: 560px;
+  }
+  .hero-sub span { color: var(--cyan); }
+
+  .hero-desc {
+    font-size: 16px; color: var(--muted);
+    line-height: 1.7; max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--orange);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 16px 40px;
+    border: none; cursor: pointer;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 15px 32px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 0;
+  }
+  .stat-item {
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--orange); opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .stat-item:hover::before { opacity: 1; }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 48px; font-weight: 900;
+    color: var(--orange); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 12px; color: var(--muted);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* SECTION */
+  section { padding: 80px 32px; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    letter-spacing: 0.2em; margin-bottom: 16px;
+  }
+  .section-tag::before { content: '//'; color: var(--muted); }
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900; color: var(--white);
+    line-height: 0.95; letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  h2 em { color: var(--orange); font-style: normal; }
+  .section-desc {
+    font-size: 16px; color: var(--muted);
+    line-height: 1.7; max-width: 520px;
+    margin-bottom: 48px;
+  }
+
+  /* PROBLEM SECTION */
+  .problem-section { background: var(--dark); }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  .problem-card {
+    background: var(--card);
+    padding: 32px 28px;
+    position: relative; overflow: hidden;
+    transition: background 0.2s;
+  }
+  .problem-card:hover { background: #131820; }
+  .problem-icon {
+    font-size: 32px; margin-bottom: 16px; display: block;
+  }
+  .problem-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px; font-weight: 800;
+    color: var(--white); margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .problem-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .problem-loss {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: #FF4444; letter-spacing: 0.1em;
+    margin-top: 12px;
+  }
+
+  /* HOW IT WORKS */
+  .steps { display: flex; flex-direction: column; gap: 0; max-width: 720px; }
+  .step {
+    display: flex; gap: 24px; align-items: flex-start;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 64px; font-weight: 900;
+    color: var(--border); line-height: 1;
+    min-width: 72px; flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .step:hover .step-num { color: var(--orange-mid); }
+  .step-content { flex: 1; padding-top: 8px; }
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px; font-weight: 800;
+    color: var(--white); margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .step-desc { font-size: 15px; color: var(--muted); line-height: 1.6; }
+  .step-tag {
+    display: inline-block; margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--orange);
+    background: var(--orange-dim);
+    border: 1px solid var(--orange-mid);
+    padding: 3px 10px; letter-spacing: 0.1em;
+  }
+
+  /* PLANS */
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px; margin-top: 48px;
+  }
+  .plan-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 32px 28px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .plan-card:hover { transform: translateY(-4px); }
+  .plan-card.featured {
+    border-color: var(--orange);
+    background: linear-gradient(160deg, #101418 0%, #141008 100%);
+  }
+  .plan-card.featured::before {
+    content: 'MOST POPULAR';
+    position: absolute; top: 0; right: 0;
+    background: var(--orange); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 0.15em;
+    padding: 4px 14px;
+  }
+  .plan-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.2em; color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .plan-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 52px; font-weight: 900;
+    color: var(--white); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .plan-price span { font-size: 20px; color: var(--muted); }
+  .plan-tagline {
+    font-size: 13px; color: var(--orange);
+    font-style: italic; margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .plan-divider {
+    height: 1px; background: var(--border);
+    margin-bottom: 20px;
+  }
+  .plan-feature {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 14px; color: var(--text);
+    margin-bottom: 10px; line-height: 1.4;
+  }
+  .plan-feature .check { color: var(--orange); flex-shrink: 0; font-weight: 700; }
+  .plan-feature .dash { color: var(--border); flex-shrink: 0; }
+  .plan-btn {
+    display: block; width: 100%; text-align: center;
+    margin-top: 24px; padding: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 800;
+    letter-spacing: 0.1em;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .plan-btn-outline {
+    background: transparent; color: var(--orange);
+    border: 1px solid var(--orange);
+  }
+  .plan-btn-outline:hover { background: var(--orange-dim); }
+  .plan-btn-filled {
+    background: var(--orange); color: var(--black);
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .plan-btn-filled:hover { opacity: 0.88; }
+
+  /* TESTIMONIAL */
+  .testimonial-section {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .testimonial-card {
+    max-width: 680px;
+    border-left: 3px solid var(--orange);
+    padding: 32px 36px;
+    background: var(--card);
+  }
+  .testimonial-quote {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700; color: var(--white);
+    line-height: 1.2; margin-bottom: 24px;
+    letter-spacing: 0.01em;
+  }
+  .testimonial-quote em { color: var(--orange); font-style: normal; }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .author-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--orange-dim);
+    border: 2px solid var(--orange);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 900; color: var(--orange);
+  }
+  .author-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--white); letter-spacing: 0.05em;
+  }
+  .author-title { font-size: 12px; color: var(--muted); }
+
+  /* RESULT STRIP */
+  .result-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px; background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  .result-item {
+    background: var(--card); padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .result-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px; font-weight: 900;
+    color: var(--orange); line-height: 1;
+  }
+  .result-label { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+  /* CTA */
+  .cta-section {
+    text-align: center; padding: 100px 32px;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, #F77F0010 0%, transparent 70%);
+  }
+  .cta-section h2 { font-size: clamp(48px, 10vw, 96px); margin-bottom: 16px; }
+  .cta-section p { font-size: 18px; color: var(--muted); margin-bottom: 40px; }
+  .cta-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--muted);
+    margin-top: 20px; letter-spacing: 0.1em;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 900;
+    color: var(--white); letter-spacing: 0.05em;
+  }
+  .footer-brand span { color: var(--orange); }
+  .footer-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a {
+    font-size: 13px; color: var(--muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--orange); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; }
+    .nav-links { gap: 16px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    section { padding: 60px 20px; }
+    .hero { padding: 60px 20px 40px; }
+    .stat-item { padding: 24px 16px; }
+    .stat-num { font-size: 36px; }
+    footer { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">DATA<span>DRYFT</span></a>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#plans">Pricing</a>
+    <a href="#contact" class="nav-cta">GET MORE JOBS</a>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>NEVER MISS A CALL AGAIN</span>
+    <span>AUTOMATED FOLLOW-UPS</span>
+    <span>MORE GOOGLE REVIEWS</span>
+    <span>LEADS LOGGED AUTOMATICALLY</span>
+    <span>QUOTE FOLLOW-UP ON AUTOPILOT</span>
+    <span>NEVER MISS A CALL AGAIN</span>
+    <span>AUTOMATED FOLLOW-UPS</span>
+    <span>MORE GOOGLE REVIEWS</span>
+    <span>LEADS LOGGED AUTOMATICALLY</span>
+    <span>QUOTE FOLLOW-UP ON AUTOPILOT</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div style="position:relative;">
+    <div class="hero-tag fade-up">
+      <div class="hero-tag-inner">
+        <div class="live-dot"></div>
+        JOBFLOW BY DATADRYFT · SYSTEM ONLINE
+      </div>
+    </div>
+
+    <h1 class="fade-up delay-1">
+      NEVER<br>
+      MISS<br>
+      A <span class="accent">JOB.</span>
+    </h1>
+
+    <p class="hero-sub fade-up delay-2">
+      Your leads. <span>Handled automatically.</span>
+    </p>
+
+    <p class="hero-desc fade-up delay-3">
+      JobFlow is a done-for-you lead system for handymen and local contractors.
+      We set it up. We maintain it. You just show up to the jobs.
+    </p>
+
+    <div class="hero-actions fade-up delay-4">
+      <a href="#contact" class="btn-primary">GET MORE JOBS →</a>
+      <a href="#how" class="btn-secondary">SEE HOW IT WORKS</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">&lt;60s</div>
+    <div class="stat-label">Response to every missed call</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3x</div>
+    <div class="stat-label">More quotes followed up</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">24/7</div>
+    <div class="stat-label">Lead system running</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$0</div>
+    <div class="stat-label">Extra staff needed</div>
+  </div>
+</div>
+
+<!-- PROBLEM SECTION -->
+<section class="problem-section">
+  <div class="section-tag">THE PROBLEM</div>
+  <h2>YOU'RE LOSING<br><em>JOBS EVERY DAY</em></h2>
+  <p class="section-desc">
+    Not because you do bad work. Because the first contractor to respond wins.
+    And right now, that's not you.
+  </p>
+
+  <div class="problem-grid">
+    <div class="problem-card">
+      <span class="problem-icon">📵</span>
+      <div class="problem-title">Missed Calls = Lost Jobs</div>
+      <div class="problem-desc">You're on a roof. In a crawlspace. Using a saw. The phone rings. You miss it. The customer calls the next guy.</div>
+      <div class="problem-loss">▲ EVERY MISSED CALL IS POTENTIAL LOST REVENUE</div>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">🌬️</span>
+      <div class="problem-title">Quotes That Go Nowhere</div>
+      <div class="problem-desc">You drove out, measured up, sent a quote. Silence. You forget to follow up. They go with someone who did.</div>
+      <div class="problem-loss">▲ 40% OF QUOTES CLOSE WITH ONE FOLLOW-UP</div>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">⭐</span>
+      <div class="problem-title">No Reviews = No Calls</div>
+      <div class="problem-desc">Your competitor has 200 Google reviews. You have 11. Who do you think the customer calls first?</div>
+      <div class="problem-loss">▲ GOOGLE REVIEWS DIRECTLY = MORE INBOUND CALLS</div>
+    </div>
+    <div class="problem-card">
+      <span class="problem-icon">💀</span>
+      <div class="problem-title">Feast or Famine</div>
+      <div class="problem-desc">Busy weeks. Dead weeks. No system to keep jobs flowing in consistently. You're always starting from zero.</div>
+      <div class="problem-loss">▲ NO SYSTEM = NO PREDICTABLE INCOME</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-tag">HOW IT WORKS</div>
+  <h2>WE BUILD IT.<br><em>IT RUNS ITSELF.</em></h2>
+  <p class="section-desc">
+    No apps to learn. No dashboards to check. No staff to hire.
+    JobFlow runs in the background while you work.
+  </p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-title">Someone Calls — You're Busy</div>
+        <div class="step-desc">You miss the call. Within 60 seconds, the customer automatically gets a text from your number: <em>"Hey, this is [Your Name] — caught me on a job. What do you need done? I'll call you back within the hour."</em> They stay warm. You don't lose them.</div>
+        <span class="step-tag">INSTANT SMS RESPONSE</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-title">New Lead — You're Notified Instantly</div>
+        <div class="step-desc">Someone fills your lead form — on Facebook, Nextdoor, your truck, wherever you share it. You get a Telegram ping with all their details. The customer gets a confirmation. Everything is logged automatically.</div>
+        <span class="step-tag">INSTANT LEAD ALERTS</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-title">Quote Sent — Follow-Up Handled</div>
+        <div class="step-desc">You mark a quote as sent. Day 2 and Day 5, a friendly follow-up text goes out automatically. No chasing. No forgetting. More quotes closed.</div>
+        <span class="step-tag">AUTO QUOTE FOLLOW-UP</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-title">Job Done — Review Request Goes Out</div>
+        <div class="step-desc">You mark the job complete. The customer gets a text asking for a Google review with a direct link. Takes them 60 seconds. Your reviews grow every single month on autopilot.</div>
+        <span class="step-tag">AUTO REVIEW GENERATION</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <div class="step-title">Slow Month — Past Clients Reactivated</div>
+        <div class="step-desc">Once a month, a campaign goes out to past customers you haven't heard from. Simple, personal message. A percentage books a job. Your slow months get filled automatically.</div>
+        <span class="step-tag">MONTHLY REACTIVATION</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section id="plans" style="background: var(--dark); border-top: 1px solid var(--border);">
+  <div class="section-tag">PRICING</div>
+  <h2>SIMPLE.<br><em>FLAT RATE.</em></h2>
+  <p class="section-desc">No contracts. No hidden fees. Cancel anytime. Most contractors make back the monthly fee in recovered jobs within 30 days.</p>
+
+  <div class="plans-grid">
+    <!-- STARTER -->
+    <div class="plan-card">
+      <div class="plan-name">STARTER</div>
+      <div class="plan-price">$297<span>/mo</span></div>
+      <div class="plan-tagline">"Never miss a call again"</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="check">✓</span> Missed call → instant SMS reply</div>
+      <div class="plan-feature"><span class="check">✓</span> Lead intake form (shareable link)</div>
+      <div class="plan-feature"><span class="check">✓</span> Instant Telegram alerts to you</div>
+      <div class="plan-feature"><span class="check">✓</span> Automatic lead logging</div>
+      <div class="plan-feature"><span class="check">✓</span> Monthly check-in</div>
+      <div class="plan-feature"><span class="dash">–</span> Quote follow-up</div>
+      <div class="plan-feature"><span class="dash">–</span> Review generation</div>
+      <div class="plan-feature"><span class="dash">–</span> Reactivation campaigns</div>
+      <a href="#contact" class="plan-btn plan-btn-outline">GET STARTED</a>
+    </div>
+
+    <!-- GROWTH -->
+    <div class="plan-card featured">
+      <div class="plan-name">GROWTH</div>
+      <div class="plan-price">$497<span>/mo</span></div>
+      <div class="plan-tagline">"Full lead system, running 24/7"</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="check">✓</span> Everything in Starter</div>
+      <div class="plan-feature"><span class="check">✓</span> Quote follow-up (day 2 + day 5)</div>
+      <div class="plan-feature"><span class="check">✓</span> Review request automation</div>
+      <div class="plan-feature"><span class="check">✓</span> Past client reactivation</div>
+      <div class="plan-feature"><span class="check">✓</span> Priority WhatsApp support</div>
+      <div class="plan-feature"><span class="dash">–</span> Seasonal campaigns</div>
+      <div class="plan-feature"><span class="dash">–</span> Monthly performance report</div>
+      <a href="#contact" class="plan-btn plan-btn-filled">GET MORE JOBS →</a>
+    </div>
+
+    <!-- PRO -->
+    <div class="plan-card">
+      <div class="plan-name">PRO</div>
+      <div class="plan-price">$797<span>/mo</span></div>
+      <div class="plan-tagline">"Done-for-you growth engine"</div>
+      <div class="plan-divider"></div>
+      <div class="plan-feature"><span class="check">✓</span> Everything in Growth</div>
+      <div class="plan-feature"><span class="check">✓</span> Seasonal campaign blasts</div>
+      <div class="plan-feature"><span class="check">✓</span> Monthly performance report</div>
+      <div class="plan-feature"><span class="check">✓</span> Google Business optimization</div>
+      <div class="plan-feature"><span class="check">✓</span> Referral loop automation</div>
+      <div class="plan-feature"><span class="check">✓</span> Bi-weekly strategy call</div>
+      <a href="#contact" class="plan-btn plan-btn-outline">GET STARTED</a>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; padding: 20px 24px; background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--orange); max-width: 600px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--orange); letter-spacing:0.15em; margin-bottom:8px;">FIRST CLIENT SPECIAL</div>
+    <div style="font-size:15px; color:var(--text); line-height:1.6;">Not ready for a monthly plan yet? Start with a <strong style="color:var(--white);">$500 one-time setup</strong> — we build your missed call + lead form system and hand it to you fully working. Then add a monthly plan when you're ready.</div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <div class="section-tag">RESULTS</div>
+  <h2>WHAT HAPPENS<br><em>AFTER 30 DAYS</em></h2>
+
+  <div class="result-strip">
+    <div class="result-item">
+      <div class="result-num">0</div>
+      <div class="result-label">Missed calls that go unanswered</div>
+    </div>
+    <div class="result-item">
+      <div class="result-num">3x</div>
+      <div class="result-label">More quotes that actually close</div>
+    </div>
+    <div class="result-item">
+      <div class="result-num">+30</div>
+      <div class="result-label">New Google reviews in 60 days</div>
+    </div>
+    <div class="result-item">
+      <div class="result-num">100%</div>
+      <div class="result-label">Automated. You do nothing.</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 48px;">
+    <div class="testimonial-card">
+      <div class="testimonial-quote">
+        "I missed a call and got a text saying the customer <em>already got a reply.</em> First time that ever happened to me. I booked the job."
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar">R</div>
+        <div>
+          <div class="author-name">ROBERTO G.</div>
+          <div class="author-title">Handyman · Cutler Bay, FL · JobFlow client</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div style="position:relative;">
+    <div class="section-tag" style="justify-content:center;">GET STARTED</div>
+    <h2>READY TO STOP<br><em>LOSING JOBS?</em></h2>
+    <p>Free 20-minute call. We'll show you exactly how many leads you're currently missing — then fix it.</p>
+    <a href="https://calendly.com/datadryft/jobflow" class="btn-primary" style="font-size:20px; padding:20px 52px;">
+      BOOK YOUR FREE CALL →
+    </a>
+    <div class="cta-note">NO CONTRACT · NO TECH KNOWLEDGE NEEDED · SETUP IN 3 DAYS</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">DATA<span>DRYFT</span></div>
+    <div class="footer-sub">JobFlow · Lead Systems for Local Contractors · Cutler Bay, FL</div>
+  </div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="#how">How It Works</a>
+    <a href="#plans">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
