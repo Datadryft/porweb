@@ -22,13 +22,54 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; background: var(--black); }
 
   body {
-    background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
     overflow-x: hidden;
+  }
+
+  /* DYNAMIC BACKGROUND */
+  .dynamic-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: float 20s infinite ease-in-out alternate;
+  }
+  .blob-1 {
+    width: 50vw; height: 50vw;
+    background: var(--orange);
+    top: -10%; left: -10%;
+  }
+  .blob-2 {
+    width: 40vw; height: 40vw;
+    background: var(--cyan);
+    bottom: -10%; right: -10%;
+    animation-duration: 25s;
+    animation-delay: -5s;
+  }
+  .blob-3 {
+    width: 45vw; height: 45vw;
+    background: #FF0055;
+    top: 40%; left: 30%;
+    animation-duration: 22s;
+    animation-delay: -10s;
+  }
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(10vw, 10vh) scale(1.1); }
+    66% { transform: translate(-5vw, 15vh) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
   }
 
   /* ANIMATIONS */
@@ -220,39 +261,6 @@
     text-decoration: none; display: inline-block;
   }
   .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
-
-  /* STATS BAR */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    margin: 0;
-  }
-  .stat-item {
-    padding: 32px 24px;
-    border-right: 1px solid var(--border);
-    position: relative; overflow: hidden;
-  }
-  .stat-item:last-child { border-right: none; }
-  .stat-item::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: var(--orange); opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .stat-item:hover::before { opacity: 1; }
-  .stat-num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 48px; font-weight: 900;
-    color: var(--orange); line-height: 1;
-    margin-bottom: 4px;
-  }
-  .stat-label {
-    font-size: 12px; color: var(--muted);
-    letter-spacing: 0.1em; text-transform: uppercase;
-    font-weight: 500;
-  }
 
   /* SECTION */
   section { padding: 80px 32px; }
@@ -524,13 +532,18 @@
     .nav-links a:not(.nav-cta) { display: none; }
     section { padding: 60px 20px; }
     .hero { padding: 60px 20px 40px; }
-    .stat-item { padding: 24px 16px; }
-    .stat-num { font-size: 36px; }
     footer { padding: 24px 20px; }
   }
 </style>
 </head>
 <body>
+
+<!-- DYNAMIC BACKGROUND -->
+<div class="dynamic-bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -590,26 +603,6 @@
     </div>
   </div>
 </section>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-num">&lt;60s</div>
-    <div class="stat-label">Response to every missed call</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">3x</div>
-    <div class="stat-label">More quotes followed up</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">24/7</div>
-    <div class="stat-label">Lead system running</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-num">$0</div>
-    <div class="stat-label">Extra staff needed</div>
-  </div>
-</div>
 
 <!-- PROBLEM SECTION -->
 <section class="problem-section">
